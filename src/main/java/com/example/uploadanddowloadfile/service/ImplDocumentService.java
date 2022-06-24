@@ -3,19 +3,16 @@ package com.example.uploadanddowloadfile.service;
 import com.example.uploadanddowloadfile.models.Document;
 import com.example.uploadanddowloadfile.repositories.DocumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
+
 
 @Service
 public class ImplDocumentService implements IDocumentService{

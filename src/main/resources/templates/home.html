@@ -18,7 +18,7 @@
         <th:block th:each="doc:${listDocs}">
             <div class="col">
                 <div>
-                   <img th:src="@{/images.png}" height="50" width="50"/>
+                    <img th:src="@{/images.png}" height="50" width="50"/>
                 </div>
                 <div>
                     <a th:href="@{'/api/v1/file/download?id='+${doc.id}}">[[${doc.name}]]</a>
@@ -26,6 +26,9 @@
                 <div>
                     ([[${#numbers.formatInteger(doc.size, 4, 'COMMA')}]] bytes)
                 </div>
+                    <div>
+                        <a th:href="@{'/api/v1/file/delete?id='+${doc.id}}" class="btn btn-danger">Delete file</a>
+                    </div>
             </div>
         </th:block>
     </div>

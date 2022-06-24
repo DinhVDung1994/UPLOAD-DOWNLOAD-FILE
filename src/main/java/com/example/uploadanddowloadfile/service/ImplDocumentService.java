@@ -48,14 +48,32 @@ public class ImplDocumentService implements IDocumentService{
     }
 
     @Override
-    public Document uploadFile(MultipartFile file) throws IOException {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        Document document = new Document();
-        document.setName(fileName);
-        document.setContent(file.getBytes());
-        document.setSize(file.getSize());
-        document.setUploadTime(new Date());
+    public void deleteFile(Long id) {
+        boolean exists = documentRepository.existsById(id);
+        if (exists){
+            documentRepository.deleteById(id);
+        }else {
+            System.out.println("Cannot find Id! file not exists!");
+        }
+    }
 
-        return documentRepository.save(document);
+    @Override
+    public Document uploadFile(MultipartFile file) throws IOException {
+        float fileSize = file.getSize()/1_000_000.0f;
+        if (fileSize >2.0f){
+            throw new IOException("File must be <=2Mb");
+        }try{
+
+            String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+            Document document = new Document();
+            document.setName(fileName);
+            document.setContent(file.getBytes());
+            document.setSize(file.getSize());
+            document.setUploadTime(new Date());
+
+            return documentRepository.save(document);
+        }catch (Exception exception){
+            throw  new RuntimeException("Cannot update file!",exception);
+        }
     }
 }
